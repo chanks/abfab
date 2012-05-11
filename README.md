@@ -7,7 +7,7 @@ Currently, it is NOT Fab, and should not be used by anyone for any reason.
 ## Goals
 * Easy to use.
 * Fast.
-* Simple - no dependencies aside from Redis and the `redis-rb` gem.
+* Simple - no dependencies aside from Redis and the `redis` gem.
 * Durable - apps shouldn't go down if the Redis connection is lost.
 
 ## Installation
