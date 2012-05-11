@@ -47,4 +47,9 @@ describe "When configuring ABFab" do
 
     ABFab.tests[:my_test].possibilities.should == [1, 2, 3, "cat!"]
   end
+
+  it "ABFab.config and .configure should work equally well" do
+    ABFab.config.should == ABFab.configure
+    ABFab.config.should == ABFab::Config.instance
+  end
 end
