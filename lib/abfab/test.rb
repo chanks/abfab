@@ -24,8 +24,34 @@ module ABFab
       end
     end
 
-    def key
-      "ABFab:#{name}"
+    def get_result(user)
+      digest = Digest::MD5.hexdigest(user.to_s + name.to_s)
+
+      index = digest.hex % possibilities.length
+
+      possibilities[index]
+    end
+
+    def add_participant(user)
+      result = get_result user
+      key    = key_for result, :participants
+
+      ABFab.redis.sadd key, user
+    end
+
+    def add_conversion(user)
+      result = get_result(user)
+
+      participant_key = key_for result, :participants
+      conversion_key  = key_for result, :conversions
+
+      if ABFab.redis.sismember(participant_key, user)
+        ABFab.redis.sadd(conversion_key, user)
+      end
+    end
+
+    def key_for(*args)
+      ["ABFab", name, *args].join(':')
     end
   end
 end
