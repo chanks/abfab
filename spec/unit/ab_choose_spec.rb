@@ -49,4 +49,20 @@ describe "The ab_choose helper" do
 
     returned.should == yielded
   end
+
+  it "for different tests should return different values for the same user unpredictably" do
+    # This will fail one in a thousand times. Find a better way to do this?
+
+    ABFab.configure do
+      define_test :hundred_one do
+        possibilities 1000
+      end
+
+      define_test :hundred_two do
+        possibilities 1000
+      end
+    end
+
+    ab_choose(:hundred_one).should_not == ab_choose(:hundred_two)
+  end
 end
