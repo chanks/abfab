@@ -1,7 +1,7 @@
-require "abfab/config"
-require "abfab/helpers"
-require "abfab/test"
-require "abfab/version"
+require 'abfab/config'
+require 'abfab/helpers'
+require 'abfab/test'
+require 'abfab/version'
 
 module ABFab
   class << self
