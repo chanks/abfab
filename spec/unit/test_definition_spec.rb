@@ -10,7 +10,7 @@ describe "When configuring ABFab" do
 
     ABFab.tests.length.should == 1
 
-    test = ABFab.tests.first
+    test = ABFab.tests[:my_test]
 
     test.name.should == :my_test
     test.possibilities.should == [1, 2, 3]
