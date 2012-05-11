@@ -16,6 +16,10 @@ module ABFab
 
     def ab_test(test_name)
       result = ab_choose(test_name)
+      test   = ABFab.tests[test_name]
+      user   = abfab_id
+
+      ABFab.redis.sadd("#{test.key}:#{result}:participants", user)
 
       yield result if block_given?
       result

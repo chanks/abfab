@@ -23,5 +23,9 @@ module ABFab
         @possibilities ||= [true, false]
       end
     end
+
+    def key
+      "ABFab:#{name}"
+    end
   end
 end
