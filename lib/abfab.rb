@@ -1,4 +1,5 @@
 require "abfab/config"
+require "abfab/helpers"
 require "abfab/test"
 require "abfab/version"
 
