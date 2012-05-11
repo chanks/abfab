@@ -4,8 +4,8 @@ require File.expand_path('../lib/abfab/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Chris Hanks"]
   gem.email         = ["christopher.m.hanks@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{A/B testing with Redis.}
+  gem.summary       = %q{Fabulous A/B testing with persistence to Redis.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
