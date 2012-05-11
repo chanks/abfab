@@ -1,6 +1,14 @@
-# Abfab
+# AB Fab
 
-TODO: Write a gem description
+AB Fab is a gem for A/B testing with persistence to Redis.
+
+Currently, it is NOT Fab, and should not be used by anyone for any reason.
+
+## Goals
+* Easy to use.
+* Fast.
+* Simple - no dependencies aside from Redis and the `redis-rb` gem.
+* Durable - apps shouldn't go down if the Redis connection is lost.
 
 ## Installation
 
