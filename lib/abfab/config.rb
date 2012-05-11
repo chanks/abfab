@@ -10,6 +10,10 @@ module ABFab
       test
     end
 
+    def reset!
+      @tests = nil
+    end
+
     def tests
       @tests ||= {}
     end
