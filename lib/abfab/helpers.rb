@@ -24,5 +24,15 @@ module ABFab
       yield result if block_given?
       result
     end
+
+    def fabulous!(test_name)
+      test   = ABFab.tests[test_name]
+      result = ab_choose(test_name)
+      user   = abfab_id
+
+      if ABFab.redis.sismember("#{test.key}:#{result}:participants", user)
+        ABFab.redis.sadd("#{test.key}:#{result}:conversions", user)
+      end
+    end
   end
 end
