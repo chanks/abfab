@@ -33,16 +33,6 @@ module ABFab
       end
     end
 
-    def possibilities
-      @possibilities ||= begin
-        hash = {}
-        values.each do |value|
-          hash[value] ||= ABFab::Possibility.new(self, value)
-        end
-        hash
-      end
-    end
-
     def value_for(user)
       digest = Digest::MD5.hexdigest(user.to_s + name.to_s)
       index  = digest.hex % values.length
@@ -56,10 +46,6 @@ module ABFab
       end
     end
 
-    def possibility_for(user)
-      possibilities[value_for(user)]
-    end
-
     def add_participant(user)
       possibility_for(user).add_participant(user)
     end
@@ -70,6 +56,22 @@ module ABFab
 
     def key_for(*args)
       ["ABFab", name, *args].join(':')
+    end
+
+    private
+
+    def possibility_for(user)
+      possibilities[value_for(user)]
+    end
+
+    def possibilities
+      @possibilities ||= begin
+        hash = {}
+        values.each do |value|
+          hash[value] ||= ABFab::Possibility.new(self, value)
+        end
+        hash
+      end
     end
   end
 end

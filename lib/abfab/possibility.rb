@@ -15,6 +15,8 @@ module ABFab
       end
     end
 
+    private
+
     def key_for(*things)
       @test.key_for @value, *things
     end
