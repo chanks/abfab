@@ -38,4 +38,15 @@ describe "The ab_choose helper" do
     results.uniq.sort.should == Words.sort
     # TODO: Some kind of spec to ensure that the possibilities see a random distribution.
   end
+
+  it "should yield the value it chooses in a block, as well as returning it" do
+    yielded = nil
+
+    returned = ab_choose :ab_choose_example do |result|
+      yielded = result
+      "Return value of block doesn't matter."
+    end
+
+    returned.should == yielded
+  end
 end

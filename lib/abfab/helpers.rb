@@ -8,8 +8,10 @@ module ABFab
 
       digest = Digest::MD5.hexdigest(user.to_s + test_name.to_s)
       index  = digest.hex % test.possibilities.length
+      result = test.possibilities[index]
 
-      test.possibilities[index]
+      yield result if block_given?
+      result
     end
   end
 end
