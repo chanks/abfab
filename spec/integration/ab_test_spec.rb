@@ -29,18 +29,18 @@ describe "The ab_test helper" do
   end
 
   it "should register the user as being given that particular value" do
-    id = abfab_id
-
+    id   = abfab_id
     word = ab_test(:ab_test_example)
+    key  = ABFab.tests[:ab_test_example].key_for(word, :participants)
 
-    $redis.smembers("ABFab:ab_test_example:#{word}:participants").should == [id.to_s]
+    $redis.smembers(key).should == [id.to_s]
   end
 
   it "should not register the same user twice" do
-    id = abfab_id
-
+    id   = abfab_id
     word = ab_test(:ab_test_example) && ab_test(:ab_test_example)
+    key  = ABFab.tests[:ab_test_example].key_for(word, :participants)
 
-    $redis.smembers("ABFab:ab_test_example:#{word}:participants").should == [id.to_s]
+    $redis.smembers(key).should == [id.to_s]
   end
 end

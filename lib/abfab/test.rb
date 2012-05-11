@@ -55,7 +55,21 @@ module ABFab
     end
 
     def key_for(*args)
-      ["ABFab", name, *args].join(':')
+      ["ABFab", hash, *args].join(':')
+    end
+
+    def type # Only type supported right now.
+      :g_test
+    end
+
+    # A hash that uniquely identifies the test. If anything changes about the
+    # test (name, type, values, whatever) the hash changes and the test
+    # restarts from scratch. This is to prevent people from modifying tests
+    # while they run, which would give them bad results.
+
+    def hash
+      raw = [name, type, values.join('/')].join(' ')
+      Digest::MD5.hexdigest(raw)
     end
 
     private
