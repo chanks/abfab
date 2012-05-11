@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 module ABFab
   class Test
     attr_reader :name

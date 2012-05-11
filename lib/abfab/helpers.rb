@@ -1,5 +1,3 @@
-require 'digest/md5'
-
 module ABFab
   module Helpers
     def ab_choose(name)
