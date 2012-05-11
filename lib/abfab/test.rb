@@ -34,7 +34,7 @@ module ABFab
     end
 
     def value_for(user)
-      digest = Digest::MD5.hexdigest(user.to_s + name.to_s)
+      digest = Digest::MD5.hexdigest(hash + user.to_s)
       index  = digest.hex % values.length
       value  = values[index]
 
