@@ -10,7 +10,7 @@ module ABFab
       if array
         @possibilities = array
       else
-        @possibilities
+        @possibilities ||= [true, false]
       end
     end
   end

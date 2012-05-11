@@ -52,4 +52,20 @@ describe "When configuring ABFab" do
     ABFab.config.should == ABFab.configure
     ABFab.config.should == ABFab::Config.instance
   end
+
+  it "a test without possibilities should default to true and false" do
+    ABFab.configure do
+      define_test :boolean
+    end
+
+    ABFab.tests[:boolean].possibilities.should == [true, false]
+  end
+
+  it "a test without possibilities should default to true and false" do
+    ABFab.configure do
+      define_test :boolean
+    end
+
+    ABFab.tests[:boolean].possibilities.should == [true, false]
+  end
 end
