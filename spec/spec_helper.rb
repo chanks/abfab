@@ -8,6 +8,7 @@ $redis = Redis.new
 
 RSpec.configure do |config|
   config.before do
+    $redis.flushdb
     ABFab.reset!
     ABFab.config.redis($redis)
   end
