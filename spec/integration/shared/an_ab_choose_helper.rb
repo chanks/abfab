@@ -21,6 +21,15 @@ shared_examples_for "an ab_choose helper" do
     rand(2**16)
   end
 
+  it "should return a dup of the result" do
+    result   = send(@helper_name, :ab_choose_example)
+    original = result.dup
+    result.upcase!
+
+    Words.should include original
+    Words.should_not include result
+  end
+
   it "should return the same results every time for a given user" do
     results = (1..100).map { send(@helper_name, :ab_choose_example) }
     results.uniq.length.should == 1

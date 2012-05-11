@@ -44,7 +44,14 @@ module ABFab
     def value_for(user)
       digest = Digest::MD5.hexdigest(user.to_s + name.to_s)
       index  = digest.hex % values.length
-      values[index]
+      value  = values[index]
+
+      case value
+      when NilClass, TrueClass, FalseClass, Symbol, Numeric, Class, Module
+        value
+      else
+        value.dup
+      end
     end
 
     def possibility_for(user)
