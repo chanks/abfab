@@ -1,5 +1,5 @@
 require "abfab/version"
 
-module Abfab
+module ABFab
   # Your code goes here...
 end
