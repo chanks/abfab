@@ -10,8 +10,17 @@ module ABFab
       test
     end
 
+    def redis(client = nil)
+      if client
+        @redis = client
+      else
+        @redis
+      end
+    end
+
     def reset!
       @tests = nil
+      @redis = nil
     end
 
     def tests

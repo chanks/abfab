@@ -16,8 +16,10 @@ describe "When configuring ABFab" do
     test.possibilities.should == [1, 2, 3]
   end
 
-  it "ABFab.reset! should remove all tests" do
+  it "ABFab.reset! should remove all tests and the Redis connection" do
     ABFab.configure do
+      redis Redis.new
+
       define_test :my_test do
         possibilities [1, 2, 3]
       end
@@ -27,6 +29,7 @@ describe "When configuring ABFab" do
 
     ABFab.reset!
 
+    ABFab.redis.should == nil
     ABFab.tests.length.should == 0
   end
 
@@ -99,5 +102,14 @@ describe "When configuring ABFab" do
     end
 
     ABFab.tests[:range].possibilities.should == [5, 6, 7, 8]
+  end
+
+  it "should accept a Redis instance" do
+    redis_client = Redis.new
+    ABFab.configure do
+      redis redis_client
+    end
+
+    ABFab.redis.should == redis_client
   end
 end
