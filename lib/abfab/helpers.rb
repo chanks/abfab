@@ -13,5 +13,12 @@ module ABFab
       yield result if block_given?
       result
     end
+
+    def ab_test(test_name)
+      result = ab_choose(test_name)
+
+      yield result if block_given?
+      result
+    end
   end
 end
