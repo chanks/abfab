@@ -3,12 +3,12 @@ shared_examples_for "an ab_choose helper" do
 
   include ABFab::Helpers
 
-  Words = %w(eleven cranky ferrets gave my mother rabies)
+  words = %w(eleven cranky ferrets gave my mother rabies)
 
   before do
     ABFab.configure do
       define_test :ab_choose_example do
-        values Words
+        values words
       end
     end
   end
@@ -26,14 +26,14 @@ shared_examples_for "an ab_choose helper" do
     original = result.dup
     result.upcase!
 
-    Words.should include original
-    Words.should_not include result
+    words.should include original
+    words.should_not include result
   end
 
   it "should return the same results every time for a given user" do
     results = (1..100).map { send(@helper_name, :ab_choose_example) }
     results.uniq.length.should == 1
-    Words.should include results.first
+    words.should include results.first
   end
 
   it "should return different values for different users unpredictably" do
@@ -44,7 +44,7 @@ shared_examples_for "an ab_choose helper" do
       @id = nil # New abfab_id each time.
     end
 
-    results.uniq.sort.should == Words.sort
+    results.uniq.sort.should == words.sort
     # TODO: Some kind of spec to ensure that the values see a random distribution.
   end
 

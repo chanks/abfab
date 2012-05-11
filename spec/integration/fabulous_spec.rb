@@ -3,12 +3,12 @@ require 'spec_helper'
 describe "The fabulous! helper" do
   include ABFab::Helpers
 
-  Words = %w(eleven cranky ferrets gave my mother rabies)
+  words = %w(eleven cranky ferrets gave my mother rabies)
 
   before do
     ABFab.configure do
       define_test :fabulous_example do
-        values Words
+        values words
       end
     end
   end
@@ -57,7 +57,7 @@ describe "The fabulous! helper" do
   it "should be able to convert multiple tests" do
     ABFab.configure do
       define_test :other_fabulous_example do
-        values Words
+        values words
       end
     end
 

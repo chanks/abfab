@@ -10,12 +10,12 @@ end
 describe "The ab_test helper" do
   include ABFab::Helpers
 
-  Words = %w(eleven cranky ferrets gave my mother rabies)
+  words = %w(eleven cranky ferrets gave my mother rabies)
 
   before do
     ABFab.configure do
       define_test :ab_test_example do
-        values Words
+        values words
       end
     end
   end
