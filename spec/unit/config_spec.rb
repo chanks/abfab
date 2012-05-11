@@ -68,4 +68,36 @@ describe "When configuring ABFab" do
 
     ABFab.tests[:boolean].possibilities.should == [true, false]
   end
+
+  it "a test with a simple integer given for possibilities should use numbers between 1 and that number" do
+    ABFab.configure do
+      define_test :integer do
+        possibilities 5
+      end
+    end
+
+    ABFab.tests[:integer].possibilities.should == [1, 2, 3, 4, 5]
+  end
+
+  it "a test with a hash given for possibilities should use stringified sorted keys as possibilities and values as weights" do
+    # sorted for rubies without ordered hashes, and stringified to be sure they'll sort.
+
+    ABFab.configure do
+      define_test :hash do
+        possibilities :dog => 1, :cat => 4
+      end
+    end
+
+    ABFab.tests[:hash].possibilities.should == %w(cat cat cat cat dog)
+  end
+
+  it "a test with a range given for possibilities should use the values inside it as possibilities." do
+    ABFab.configure do
+      define_test :range do
+        possibilities 5..8
+      end
+    end
+
+    ABFab.tests[:range].possibilities.should == [5, 6, 7, 8]
+  end
 end
