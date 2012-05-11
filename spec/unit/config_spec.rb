@@ -29,4 +29,22 @@ describe "When configuring ABFab" do
 
     ABFab.tests.length.should == 0
   end
+
+  it "ABFab.define_test should reopen the same test if done twice" do
+    ABFab.configure do
+      define_test :my_test do
+        possibilities [1, 2, 3]
+      end
+    end
+
+    ABFab.tests[:my_test].possibilities.should == [1, 2, 3]
+
+    ABFab.configure do
+      define_test :my_test do
+        possibilities [1, 2, 3, "cat!"]
+      end
+    end
+
+    ABFab.tests[:my_test].possibilities.should == [1, 2, 3, "cat!"]
+  end
 end
