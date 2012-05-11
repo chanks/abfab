@@ -50,4 +50,24 @@ describe "The fabulous! helper" do
     $redis.smembers("ABFab:fabulous_example:#{word}:participants").should == [id.to_s]
     $redis.smembers("ABFab:fabulous_example:#{word}:conversions").should  == [id.to_s]
   end
+
+  it "should be able to convert multiple tests" do
+    ABFab.configure do
+      define_test :other_fabulous_example do
+        values Words
+      end
+    end
+
+    word  = ab_test(:fabulous_example)
+    other = ab_test(:other_fabulous_example)
+    id    = abfab_id
+
+    fabulous! :fabulous_example, :other_fabulous_example
+
+    $redis.smembers("ABFab:fabulous_example:#{word}:participants").should == [id.to_s]
+    $redis.smembers("ABFab:fabulous_example:#{word}:conversions").should  == [id.to_s]
+
+    $redis.smembers("ABFab:other_fabulous_example:#{other}:participants").should == [id.to_s]
+    $redis.smembers("ABFab:other_fabulous_example:#{other}:conversions").should  == [id.to_s]
+  end
 end

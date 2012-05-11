@@ -15,8 +15,10 @@ module ABFab
       ab_choose(test_name, &block)
     end
 
-    def fabulous!(test_name)
-      ABFab.tests[test_name].add_conversion(abfab_id)
+    def fabulous!(*test_names)
+      test_names.each do |test_name|
+        ABFab.tests[test_name].add_conversion(abfab_id)
+      end
     end
   end
 end
