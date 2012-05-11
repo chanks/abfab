@@ -10,6 +10,16 @@ Currently, it is NOT Fab, and should not be used by anyone for any reason.
 * Simple - no dependencies aside from Redis and the `redis` gem.
 * Durable - apps shouldn't go down if the Redis connection is lost.
 
+## TODO
+* Automatic Rails integration.
+* Different value selection modes for development, test, production.
+* Add some way for the app to ignore bots and uptime pings and whatnot, so as not to mess with the statistics.
+* Automatically stop testing and only show one result when it's shown to be the best. (?)
+* Rake task to clean out results from retired tests (will need $redis.keys then a mass $redis.del).
+* Rake task to view test results.
+  * Don't show results for tests that are still in progress (haven't reached the significance mark). Maybe let the user specify a flag to force their display.
+  * For tests still in progress, show many data points have been accumulated and how many are necessary.
+
 ## Installation
 
 Add this line to your application's Gemfile:
