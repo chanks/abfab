@@ -6,7 +6,7 @@ module ABFab
 
     def define_test(name, &block)
       test = Test.new(name)
-      yield test if block_given?
+      test.instance_eval(&block) if block_given?
       tests << test
       test
     end

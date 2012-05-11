@@ -6,7 +6,7 @@ module ABFab
   class << self
     def config(&block)
       config = Config.instance
-      yield config if block_given?
+      config.instance_eval(&block) if block_given?
       config
     end
     alias :configure :config
