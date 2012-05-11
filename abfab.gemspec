@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ['christopher.m.hanks@gmail.com']
   gem.description   = %q{A/B testing with Redis.}
   gem.summary       = %q{Fabulous A/B testing with persistence to Redis.}
-  gem.homepage      = ''
+  gem.homepage      = 'https://github.com/chanks/abfab'
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
