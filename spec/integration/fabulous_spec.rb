@@ -8,7 +8,7 @@ describe "The fabulous! helper" do
   before do
     ABFab.configure do
       define_test :fabulous_example do
-        possibilities Words
+        values Words
       end
     end
   end

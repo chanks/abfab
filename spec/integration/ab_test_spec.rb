@@ -15,7 +15,7 @@ describe "The ab_test helper" do
   before do
     ABFab.configure do
       define_test :ab_test_example do
-        possibilities Words
+        values Words
       end
     end
   end

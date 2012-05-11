@@ -6,48 +6,57 @@ module ABFab
       @name = name
     end
 
-    def possibilities(input = nil)
+    # Values is a weighted array of the results of an AB test.
+    # Possibilities is a hash of unique values and their Possibility objects.
+
+    # i.e. If you configure ABFab with "values :big => 2, :small => 1":
+    # values = ['big', 'big', 'small']
+    # possibilities = {'big' => Possibility... 'small' => ABFab::Possibility...}
+
+    def values(input = nil)
       if input
-        @possibilities =
-          case input
-            when Integer
-              (1..input).to_a
-            when Hash
-              input.inject [] do |array, (key, integer)|
-                array += [key.to_s] * integer
-              end.sort
-            else
-              input.to_a
-          end
+        @possibilities = nil
+        @values = case input
+                    when Integer
+                      (1..input).to_a
+                    when Hash
+                      input.inject [] do |array, (key, integer)|
+                        array += [key.to_s] * integer
+                      end.sort
+                    else
+                      input.to_a
+                  end
       else
-        @possibilities ||= [true, false]
+        @values ||= values([true, false])
       end
     end
 
-    def get_result(user)
+    def possibilities
+      @possibilities ||= begin
+        hash = {}
+        values.each do |value|
+          hash[value] ||= ABFab::Possibility.new(self, value)
+        end
+        hash
+      end
+    end
+
+    def value_for(user)
       digest = Digest::MD5.hexdigest(user.to_s + name.to_s)
+      index  = digest.hex % values.length
+      values[index]
+    end
 
-      index = digest.hex % possibilities.length
-
-      possibilities[index]
+    def possibility_for(user)
+      possibilities[value_for(user)]
     end
 
     def add_participant(user)
-      result = get_result user
-      key    = key_for result, :participants
-
-      ABFab.redis.sadd key, user
+      possibility_for(user).add_participant(user)
     end
 
     def add_conversion(user)
-      result = get_result(user)
-
-      participant_key = key_for result, :participants
-      conversion_key  = key_for result, :conversions
-
-      if ABFab.redis.sismember(participant_key, user)
-        ABFab.redis.sadd(conversion_key, user)
-      end
+      possibility_for(user).add_conversion(user)
     end
 
     def key_for(*args)

@@ -4,7 +4,7 @@ describe "When configuring ABFab" do
   it "define_test should create a new test" do
     ABFab.configure do
       define_test :my_test do
-        possibilities [1, 2, 3]
+        values [1, 2, 3]
       end
     end
 
@@ -13,7 +13,7 @@ describe "When configuring ABFab" do
     test = ABFab.tests[:my_test]
 
     test.name.should == :my_test
-    test.possibilities.should == [1, 2, 3]
+    test.values.should == [1, 2, 3]
   end
 
   it "ABFab.reset! should remove all tests and the Redis connection" do
@@ -21,7 +21,7 @@ describe "When configuring ABFab" do
       redis Redis.new
 
       define_test :my_test do
-        possibilities [1, 2, 3]
+        values [1, 2, 3]
       end
     end
 
@@ -36,19 +36,19 @@ describe "When configuring ABFab" do
   it "ABFab.define_test should reopen the same test if done twice" do
     ABFab.configure do
       define_test :my_test do
-        possibilities [1, 2, 3]
+        values [1, 2, 3]
       end
     end
 
-    ABFab.tests[:my_test].possibilities.should == [1, 2, 3]
+    ABFab.tests[:my_test].values.should == [1, 2, 3]
 
     ABFab.configure do
       define_test :my_test do
-        possibilities [1, 2, 3, "cat!"]
+        values [1, 2, 3, "cat!"]
       end
     end
 
-    ABFab.tests[:my_test].possibilities.should == [1, 2, 3, "cat!"]
+    ABFab.tests[:my_test].values.should == [1, 2, 3, "cat!"]
   end
 
   it "ABFab.config and .configure should work equally well" do
@@ -56,52 +56,52 @@ describe "When configuring ABFab" do
     ABFab.config.should == ABFab::Config.instance
   end
 
-  it "a test without possibilities should default to true and false" do
+  it "a test without values should default to true and false" do
     ABFab.configure do
       define_test :boolean
     end
 
-    ABFab.tests[:boolean].possibilities.should == [true, false]
+    ABFab.tests[:boolean].values.should == [true, false]
   end
 
-  it "a test without possibilities should default to true and false" do
+  it "a test without values should default to true and false" do
     ABFab.configure do
       define_test :boolean
     end
 
-    ABFab.tests[:boolean].possibilities.should == [true, false]
+    ABFab.tests[:boolean].values.should == [true, false]
   end
 
-  it "a test with a simple integer given for possibilities should use numbers between 1 and that number" do
+  it "a test with a simple integer given for values should use numbers between 1 and that number" do
     ABFab.configure do
       define_test :integer do
-        possibilities 5
+        values 5
       end
     end
 
-    ABFab.tests[:integer].possibilities.should == [1, 2, 3, 4, 5]
+    ABFab.tests[:integer].values.should == [1, 2, 3, 4, 5]
   end
 
-  it "a test with a hash given for possibilities should use stringified sorted keys as possibilities and values as weights" do
+  it "a test with a hash given for values should use stringified sorted weighted keys as values" do
     # sorted for rubies without ordered hashes, and stringified to be sure they'll sort.
 
     ABFab.configure do
       define_test :hash do
-        possibilities :dog => 1, :cat => 4
+        values :dog => 1, :cat => 4
       end
     end
 
-    ABFab.tests[:hash].possibilities.should == %w(cat cat cat cat dog)
+    ABFab.tests[:hash].values.should == %w(cat cat cat cat dog)
   end
 
-  it "a test with a range given for possibilities should use the values inside it as possibilities." do
+  it "a test with a range given for values should use the values inside it" do
     ABFab.configure do
       define_test :range do
-        possibilities 5..8
+        values 5..8
       end
     end
 
-    ABFab.tests[:range].possibilities.should == [5, 6, 7, 8]
+    ABFab.tests[:range].values.should == [5, 6, 7, 8]
   end
 
   it "should accept a Redis instance" do

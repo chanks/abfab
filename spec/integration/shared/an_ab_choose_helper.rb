@@ -8,7 +8,7 @@ shared_examples_for "an ab_choose helper" do
   before do
     ABFab.configure do
       define_test :ab_choose_example do
-        possibilities Words
+        values Words
       end
     end
   end
@@ -36,7 +36,7 @@ shared_examples_for "an ab_choose helper" do
     end
 
     results.uniq.sort.should == Words.sort
-    # TODO: Some kind of spec to ensure that the possibilities see a random distribution.
+    # TODO: Some kind of spec to ensure that the values see a random distribution.
   end
 
   it "should yield the value it chooses in a block, as well as returning it" do
@@ -55,11 +55,11 @@ shared_examples_for "an ab_choose helper" do
 
     ABFab.configure do
       define_test :hundred_one do
-        possibilities 1000
+        values 1000
       end
 
       define_test :hundred_two do
-        possibilities 1000
+        values 1000
       end
     end
 

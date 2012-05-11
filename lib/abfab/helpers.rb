@@ -3,10 +3,9 @@ require 'digest/md5'
 module ABFab
   module Helpers
     def ab_choose(test_name)
-      result = ABFab.tests[test_name].get_result(abfab_id)
+      result = ABFab.tests[test_name].value_for(abfab_id)
 
       yield result if block_given?
-
       result
     end
 
