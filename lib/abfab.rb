@@ -14,11 +14,7 @@ module ABFab
     alias :configure :config
 
     Config.public_instance_methods(false).each do |method|
-      class_eval <<-METHOD
-        def #{method}(*args)
-          config.send(:#{method}, *args)
-        end
-      METHOD
+      class_eval "def #{method}(*args); config.send(:#{method}, *args); end"
     end
   end
 end
