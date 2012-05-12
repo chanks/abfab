@@ -112,4 +112,22 @@ describe "When configuring ABFab" do
 
     ABFab.redis.should == redis_client
   end
+
+  it "all definitions should work with blocks of arity > 0" do
+    ABFab.configure do |config|
+      config.redis Redis.new
+
+      config.define_test :arity_test do |t|
+        t.values [1, 2]
+      end
+
+      config.define_test :tra_la_la do
+        values ["A", "B"]
+      end
+    end
+
+    ABFab.tests.count.should == 2
+    ABFab.tests[:arity_test].values.should == [1, 2]
+    ABFab.tests[:tra_la_la].values.should == ["A", "B"]
+  end
 end
