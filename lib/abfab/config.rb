@@ -5,7 +5,7 @@ module ABFab
     include Singleton
 
     def define_test(name, &block)
-      test = tests[name] ||= Test.new(name)
+      test = tests[name.to_s] ||= Test.new(name)
       test.instance_eval(&block) if block_given?
       test
     end
@@ -24,7 +24,7 @@ module ABFab
     end
 
     def tests
-      @tests ||= {}
+      @tests ||= Hash.new { |hash, key| hash[key.to_s] if Symbol === key }
     end
   end
 end

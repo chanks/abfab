@@ -18,4 +18,8 @@ describe ABFab::Test do
   it "should have its hash in its key" do
     ABFab.tests[:test].key_for(:blah).should == "ABFab:ba74a057ff3cdd4bec3c0f2ff181e60c:blah"
   end
+
+  it "should be reachable by both string and symbol" do
+    ABFab.tests[:test].should == ABFab.tests['test']
+  end
 end
