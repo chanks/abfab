@@ -22,3 +22,8 @@ module ABFab
     end
   end
 end
+
+if defined? Rails::Railtie
+  require 'abfab/rails_id'
+  require 'abfab/railtie'
+end
