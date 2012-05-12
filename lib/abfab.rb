@@ -8,7 +8,7 @@ module ABFab
   class << self
     def config(&block)
       config = Config.instance
-      config.instance_eval(&block) if block_given?
+      config.instance_eval(&block) if block
       config
     end
     alias :configure :config

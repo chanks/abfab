@@ -6,7 +6,7 @@ module ABFab
 
     def define_test(name, &block)
       test = tests[name.to_s] ||= Test.new(name)
-      test.instance_eval(&block) if block_given?
+      test.instance_eval(&block) if block
       test
     end
 
