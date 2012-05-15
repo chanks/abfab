@@ -72,8 +72,6 @@ module ABFab
       Digest::MD5.hexdigest(raw)
     end
 
-    private
-
     def possibility_for(user)
       possibilities[value_for(user)]
     end
@@ -86,6 +84,20 @@ module ABFab
         end
         hash
       end
+    end
+
+    def results
+      results = {}
+
+      possibilities.each_value do |possibility|
+        participants = ABFab.redis.scard possibility.key_for(:participants)
+        conversions  = ABFab.redis.scard possibility.key_for(:conversions)
+        results[possibility.value] = [participants, conversions]
+      end
+
+      results.map do |value, (participants, conversions)|
+        "#{value} had #{participants} participants and #{conversions} conversions"
+      end.join("\n")
     end
   end
 end

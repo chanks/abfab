@@ -1,5 +1,7 @@
 module ABFab
   class Possibility
+    attr_reader :value
+
     def initialize(test, value)
       @test  = test
       @value = value
@@ -14,8 +16,6 @@ module ABFab
         ABFab.redis.sadd key_for(:conversions), user
       end
     end
-
-    private
 
     def key_for(*things)
       @test.key_for @value, *things
